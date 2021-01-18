@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Book;
+use App\Models\Author;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class BookFactory extends Factory
@@ -22,7 +23,11 @@ class BookFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => $this->faker->title(),
+            'annotation' => $this->faker->text(45),
+            'author_id' => function () {
+                return Author::inRandomOrder()->first()->id;
+            },
         ];
     }
 }
