@@ -24,7 +24,7 @@ class RatingFactory extends Factory
     public function definition()
     {
         return [
-            'mark' => $this->faker->randomDigit(1, 5),
+            'mark' => $this->faker->numberBetween(1, 5),
             'ratingable_id' => $this->faker->boolean(50) ? function () {
                 return Author::inRandomOrder()->first()->id;
             } : function () {
