@@ -31,9 +31,9 @@ class RatingFactory extends Factory
                 return Book::inRandomOrder()->first()->id;
             },
             'ratingable_type' => $this->faker->boolean(50) ? function () {
-                return Author::inRandomOrder()->first();
+                return get_class(Author::inRandomOrder()->first());
             } : function () {
-                return Book::inRandomOrder()->first();
+                return get_class(Book::inRandomOrder()->first());
             },
         ];
     }
