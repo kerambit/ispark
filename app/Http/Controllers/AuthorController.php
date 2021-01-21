@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Author;
+use App\Models\Rating;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AuthorController extends Controller
 {
@@ -14,7 +16,15 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        //
+        $authors = Author::query()
+            ->with('marks')
+            ->when(request('search'), function ($q, $search){
+                return $q->where('first_name', 'like', "%{$search}%")
+                    ->orWhere('last_name', 'like', "%{$search}%");
+            })
+            ->paginate();
+
+        return $authors;
     }
 
     /**
