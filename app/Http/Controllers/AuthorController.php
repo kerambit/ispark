@@ -46,7 +46,7 @@ class AuthorController extends Controller
      */
     public function show(Author $author)
     {
-        //
+        return $author;
     }
 
     /**
