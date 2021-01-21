@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreAuthorRequest;
+use App\Http\Requests\UpdateAuthorRequest;
 use App\Models\Author;
 use App\Models\Rating;
 use Illuminate\Http\Request;
@@ -58,13 +59,18 @@ class AuthorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UpdateAuthorRequest  $request
      * @param  \App\Models\Author  $author
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Author $author)
+    public function update(UpdateAuthorRequest $request, Author $author)
     {
-        //
+        $input = $request->validated();
+
+        $author->update($input);
+
+        return redirect()
+            ->route('authors.show', $author);
     }
 
     /**
