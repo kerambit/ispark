@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreAuthorRequest;
 use App\Models\Author;
 use App\Models\Rating;
 use Illuminate\Http\Request;
@@ -30,12 +31,17 @@ class AuthorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreAuthorRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAuthorRequest $request)
     {
-        //
+        $input = $request->validated();
+
+        Author::create($input);
+
+        return redirect()
+            ->route('authors.index');
     }
 
     /**
