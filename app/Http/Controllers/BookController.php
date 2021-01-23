@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreBookRequest;
 use App\Models\Book;
 use Illuminate\Http\Request;
 
@@ -14,18 +15,30 @@ class BookController extends Controller
      */
     public function index()
     {
-        //
+        $books = Book::query()
+            ->with('marks')
+            ->when(request('search'), function ($q, $search){
+                return $q->where('title', 'like', "%{$search}%");
+            })
+            ->paginate();
+
+        return $books;
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreBookRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreBookRequest $request)
     {
-        //
+        $input = $request->validated();
+
+        Book::create($input);
+
+        return redirect()
+            ->route('books.index');
     }
 
     /**
@@ -36,19 +49,26 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+        $book->load(['author', 'marks']);
+
+        return $book;
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreBookRequest  $request
      * @param  \App\Models\Book  $book
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Book $book)
+    public function update(StoreBookRequest $request, Book $book)
     {
-        //
+        $input = $request->validated();
+
+        $book->update($input);
+
+        return redirect()
+            ->route('books.show', $book);
     }
 
     /**
@@ -59,6 +79,9 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+        $book->destroy();
+
+        return redirect()
+            ->route('books.index');
     }
 }
