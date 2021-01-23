@@ -52,6 +52,8 @@ class AuthorController extends Controller
      */
     public function show(Author $author)
     {
+        $author->load(['books', 'marks']);
+
         return $author;
     }
 
