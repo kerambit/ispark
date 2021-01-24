@@ -10,6 +10,15 @@ class Rating extends Model
     use HasFactory;
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'mark', 'ratingable_type', 'ratingable_id',
+    ];
+
+    /**
      * The number of models to return for pagination.
      *
      * @var int

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use App\Http\Controllers\AuthorController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\RatingController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,3 +23,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('authors', AuthorController::class);
 Route::apiResource('books', BookController::class);
+Route::apiResource('ratings', RatingController::class)->only(['store']);

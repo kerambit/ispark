@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreRatingRequest;
 use App\Models\Rating;
 use Illuminate\Http\Request;
 
@@ -20,12 +21,16 @@ class RatingController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreRatingRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRatingRequest $request)
     {
-        //
+        $input = $request->validated();
+
+        $rating = Rating::create($input);
+
+        return $rating;
     }
 
     /**
