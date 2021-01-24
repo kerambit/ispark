@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Models\Author;
 use App\Models\Book;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreRatingRequest extends FormRequest
 {
