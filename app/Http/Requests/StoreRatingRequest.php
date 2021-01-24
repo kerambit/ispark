@@ -28,7 +28,7 @@ class StoreRatingRequest extends FormRequest
     {
         return [
             'mark' => ['required', 'integer', 'min:1', 'max:5'],
-            'ratingable_type' => ['required', Rule::in([get_class(Author::class), get_class(Book::class)])],
+            'ratingable_type' => ['required', Rule::in([Author::class, Book::class])],
             'ratingable_id' => ['required', 'integer']
         ];
     }
